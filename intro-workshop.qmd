@@ -1,5 +1,5 @@
 ---
-title: "Intro to Visualisations in R"
+title: "Intro to Data Visualisations in R"
 date: "`r Sys.Date()`"
 author: "Taylor Blair"
 editor: source
@@ -8,7 +8,7 @@ format:
     incremental: false   
     theme: Madrid
     colortheme: lily
-    logo: reed-resized.png
+    logo: images/reed-resized.png
 header-includes:
   - \usepackage{multicol}
   - \definecolor{ReedRed}{RGB}{167, 14, 22} %Reed Red (primary)
