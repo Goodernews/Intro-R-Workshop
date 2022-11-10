@@ -1,0 +1,611 @@
+---
+title: "Intro to Visualisations in R"
+date: "`r Sys.Date()`"
+author: "Taylor Blair"
+editor: source
+format:
+  beamer:
+    incremental: false   
+    theme: Madrid
+    colortheme: lily
+    logo: reed-resized.png
+header-includes:
+  - \usepackage{multicol}
+  - \definecolor{ReedRed}{RGB}{167, 14, 22} %Reed Red (primary)
+  - \usecolortheme[named=ReedRed]{structure}
+  - \useoutertheme{miniframes}
+  - \useinnertheme{circles}
+  - \usepackage{soul}
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Before we get started
+
+
+## A bit about me
+
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/taylor.jpg}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{itemize}
+    \item \textbf{Name:} Taylor Blair
+    \item \textbf{College I attend:} Reed College
+    \item \textbf{Major:} CS/Math
+    \item \textbf{Fun Fact:} Sea otters hold hands when they sleep
+  \end{itemize}
+  \vfill \null
+\end{multicols}
+
+
+## Who is this workshop for?
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/xkcd-3.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{itemize}
+    \item Some programming experience.
+    \item If you already know R then you won't get much out of this. 
+  \end{itemize}
+  \vfill \null
+\end{multicols}
+
+## What will we be doing?
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/xkcd.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{enumerate}
+    \item Going over a bit about R
+    \item Setting up RStudio cloud
+    \item Setting up a work environment
+    \item Learning to manipulate data
+    \item Making graphs!
+  \end{enumerate}
+  \vfill \null
+\end{multicols}
+
+## What is `R`?
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/r-logo.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{itemize}
+    \item \st{A language that falsely believes that lists start at 1.}
+    \item A programming language for statisticians, by statisticians.
+    \item Simple language for data science.
+  \end{itemize}
+  \vfill \null
+\end{multicols}
+
+## Why are we not using Python?
+
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/rvspython.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  Python is a useful tool for data science, but it has its own use case. 
+  
+  Because Python was not made designed with data science in mind it has a steeper learning curve.
+  \vfill \null
+\end{multicols}
+# Setup
+
+## RStudio
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/rstudio-server.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  RStudio is a common IDE for R based development.
+  
+  \begin{itemize}
+  \item \textbf{Pros}
+  \begin{itemize}
+  \item It is laid out for R development.
+  \end{itemize}
+  \item \textbf{Cons}
+  \begin{itemize}
+    \item RStudio features do not translate to other languages.
+  \end{itemize}
+  \end{itemize}
+  \vfill \null
+\end{multicols}
+
+## Making an R Studio Server account
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/account-creation.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{enumerate}
+    \item Go to: \href{https://rstudio.cloud/plans/free}{https://rstudio.cloud/plans/free} 
+    \item Create an account 
+  \end{enumerate}
+  \vfill \null
+\end{multicols}
+
+\note{We are not going to go through the process of setting up a local R and RStudio install as that will take to long. Instead we will use rstudio cloud}
+
+
+## Making a New Project
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/new-project.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{enumerate}
+    \item Go to "\textbf{Your Workspace}"
+    \item Click "\textbf{New Project}"
+    \item Click "\textbf{New RStudio Project}"
+  \end{enumerate}
+  \vfill \null
+\end{multicols}
+
+
+
+## Making a new document
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/new-file.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{enumerate}
+    \item Go to the file tab
+    \item Select: "\textbf{New File}"
+    \item Select:"\textbf{RMarkdown}"
+    \item Let it download
+    \item Select the \textbf{HTML} option
+    \item Knit! (\textit{Yarn ball icon})
+  \end{enumerate}
+  \vfill \null
+\end{multicols}
+
+## Layout of an RMD (R Markdown)
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/rmd-example.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{itemize}
+    \item YAML header: Specifies how to compile the RMD.
+    \item Markdown text: Standard markdown formatting.
+    \item Code chunks: Denoted by back ticks. Enable code to be run in place and compiled to a document.
+  \end{itemize}
+  \vfill \null
+\end{multicols}
+
+## `tidyverse`
+
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/tidyverse-logo.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  tidyverse is a package that combines several common R packages including:
+
+\begin{itemize}
+  \item dplyr (data manipulation)
+  \item ggplot2 (graphing)
+  \item And more!!!
+\end{itemize}
+  \vfill \null
+\end{multicols}
+
+## `pdxTrees`
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/parks-n-rec.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  The pdxTrees package was made by a Reed professor using data from the Portland Parks \& Recreation department. 
+  \vfill \null
+\end{multicols}
+
+## Installing packages
+
+For this workshop we will use two packages: [`pdxTrees`](https://github.com/mcconvil/pdxTrees) and [`tidyverse`](https://www.tidyverse.org/)
+
+1. To install
+```{r, echo =TRUE , eval = F}
+# Only need to run once
+# Can be run in the console
+install.packages(c("pdxTrees", "tidyverse"))
+```
+
+2. To load
+
+```{r, echo=TRUE}
+# Place in a block at the top
+library(tidyverse)
+library(pdxTrees)
+```
+
+
+# Manipulating data
+
+## A question we can answer with `pdxTrees`
+
+```{r, out.height = "200px", fig.align='center'}
+knitr::include_graphics("images/lake.jpg")
+```
+
+## The most famous Reed alum...
+
+\begin{itemize}
+  \item Known for something involving food
+  \item You've probably seen their book
+  \item Last name is a common word
+  \item Had a temper that calmed over time
+  \item Did not graduate from Reed
+\end{itemize}
+
+
+## The most famous Reed alumn is James Beard!
+
+```{r, fig.align='center', out.height = "200px"}
+knitr::include_graphics("images/James_Beard.jpg")
+```
+
+Attended Reed from 1920 to 1922.
+
+
+## Importing the data
+
+To store the `pdxTrees` data in the variable `trees`:
+
+```{r, echo=TRUE}
+# `<-` is the assignment operator 
+trees <- get_pdxTrees_parks()
+
+```
+
+In practice, `read_csv` or a similar function from the `readr` package will be used.
+
+```{r, eval=FALSE, echo=TRUE}
+
+data <- read_csv("big_data.csv")
+
+```
+
+## Estimating the age of a tree
+
+Tree age can be estimated using: $\mathrm{Diameter\ at\ breast\ height\ (DBH)} \times \mathrm{growth\ factor} = \mathrm{Age}$
+
+```{r, out.width = "300px", fig.align='center'}
+knitr::include_graphics("images/growth-factors.jpg")
+```
+
+## Age of trees
+
+Lets make an extra column that represents a rough estimate for tree age:
+
+```{r, echo = T}
+trees <- trees %>% # `%>%` is the pipeline operator
+  mutate(growth_factor = 3, # approximate growth factor
+         age = growth_factor * DBH,
+         planted = 2019 - age) # surveyed between 2017-2019
+```
+
+```{r}
+set.seed(1234)
+trees %>%
+  select(Park, Common_Name, DBH, age, planted) %>%
+  sample_n(5) %>%
+  knitr::kable(format = "markdown")
+```
+
+
+## Filtering data
+
+Tibbles can be filtered in `R` using the `filter` function from the `dplyr` package 
+
+```{r, echo = T}
+
+# a vector of parks near reed
+parks <- c("Crystal Springs Rhododendron Garden",
+           "Woodstock Park",
+           "Kenilworth Park")
+
+# Tibble of trees near Reed that from before 1920
+james_beard <- trees %>% # `%>%` is the pipeline operator
+  filter(Park %in% parks, # Check if tree is in
+                          # a park near Reed
+         planted < 1920) # Planted before James Beard
+
+
+```
+
+## A few trees James Beard might have seen
+
+```{r}
+james_beard %>%
+  arrange(planted) %>%
+  select(Longitude, Latitude, Common_Name, DBH, age, planted) %>%
+  head(5) %>%
+  knitr::kable(format = "markdown")
+
+```
+
+
+## Me next to a tree James Beard might have seen
+
+```{r, fig.align='center', out.height = "200px"}
+knitr::include_graphics("images/me-tree.jpg")
+```
+
+
+# Creating Visualizations
+
+
+## `ggplot2`
+
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/ggplot2.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  ggplot2 is  a common graphing library for R. The `ggplot` function takes an aesthetic mapping and chart type and returns a pretty graph!
+  \vfill \null
+\end{multicols}
+
+## `aes`
+
+`aes` stands for aesthetic. It takes the mappings for a graph and passes it to the `geom` layers.
+
+The layout format for `aes` is:
+
+```{r, echo = T, eval = F}
+ggplot(data = dataset, 
+       mapping = aes(x = col_x, 
+                     y = col_y, 
+                     color = ...,
+                     ...))
+
+```
+
+For the next few graphs we will be using:
+
+```{r, echo=TRUE}
+age_graph <- trees %>%
+  ggplot(mapping = aes(x=age))
+```
+
+
+## `geom`
+
+`geom` specifies the shape for a given graph. For example, fixing an aesthetic and changing the `geom` to: `geom_hist()`, `geom_density()`, and `geom_boxplot()` results in different types of graphs.
+
+```{r, eval=FALSE, echo=TRUE}
+
+# Boxplot
+age_graph + geom_boxplot()
+
+# Histogram
+age_graph + geom_hist()
+  
+# Density graph
+age_graph + geom_density()
+
+```
+
+
+
+## `geom_boxplot()`
+
+```{r, echo=TRUE, out.height="150px", fig.align='center'}
+
+# `age_graph` is:
+# age_graph <- trees %>%
+#   ggplot(mapping = aes(x=age))
+
+age_graph +
+  geom_boxplot()
+```
+
+## `geom_histogram()`
+
+```{r, echo=TRUE, out.height="150px", fig.align='center'}
+age_graph +
+  geom_histogram()
+
+```
+
+## `geom_density()`
+
+```{r, echo=TRUE, out.height="150px", fig.align='center'}
+age_graph +
+  geom_density()
+```
+
+
+## Building out a graph
+
+```{r, fig.align='center', out.height = "200px"}
+knitr::include_graphics("images/xkcd-4.png")
+```
+## `geom_point()` of trees in Portland
+
+```{r, echo = T, out.height="150px", fig.align='center'}
+trees %>%
+  ggplot(aes(x = Longitude, y = Latitude)) +
+  geom_point() 
+```
+
+## `geom_point()` of trees in Portland, colored by nativity
+
+```{r, echo = T, out.height="150px", fig.align='center'}
+trees %>%
+  drop_na(Native) %>%
+  ggplot(aes(x = Longitude, y = Latitude, color = Native)) +
+  geom_point(alpha=0.3) 
+```
+
+## `geom_point()` of trees in Portland, colored by nativity with park labels
+
+```{r, echo = T, out.height="140px", fig.align='center'}
+trees %>%
+  drop_na(Native) %>%
+  ggplot(aes(x = Longitude, y = Latitude, color = Native,
+             label = Park)) +
+  geom_point(alpha=0.3) +
+  geom_text(check_overlap = TRUE, colour = "black")
+
+```
+
+## `geom_point()` of trees near Reed
+
+```{r, echo = T, out.height="140px", fig.align='center'}
+trees %>%
+  filter(Park %in% parks) %>%
+  drop_na(Native) %>%
+  ggplot(aes(x = Longitude, y = Latitude, color = Native, label = Park)) +
+  geom_point(alpha = 0.3) +
+  geom_point(x = -122.6284, y = 45.4811, shape = 2, size = 4, color = "yellow") +
+  geom_text(check_overlap = TRUE, colour = "black")
+```
+
+## `geom_bar` near Reed
+
+```{r, echo = T, out.height="150px", fig.align='center'}
+trees %>%
+  filter(Park %in% parks) %>%
+  drop_na(Native) %>%
+  ggplot(aes(y=Park, fill = Native)) +
+  geom_bar(position = "fill")
+```
+
+## Go try things!
+
+Make a chart using `pdxTrees` and `ggplot` provided. Here are some commands to get you started:
+
+| General `R`  |  `dplyr` | `ggplot2`   |
+|--------------|----------|------------|
+| Assignment: `<-`   |  `filter()` | `ggplot(aes()) + `   |
+| Pipeline: `%>%`  |  `mutate()` |  `aes(x =..., y=...)`  |   
+| Comparison: `%in%`, `>`   | `drop_na()`   |  `geom_bar()`, `geom_point` |
+
+
+# Closing
+
+## If you want to continue
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/u-mass-data-sci.png}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \includegraphics[width=.4\textwidth]{images/tidy-tuesday.jpg}
+  \vfill \null
+\end{multicols}
+
+## Special Thanks
+
+\begin{multicols}{2}
+
+  \null \vfill
+  \begin{itemize}
+    \item Becca Elenzil
+    \item Charles McGuffey
+    \item Christine Miller
+    \item Evan Sieden 
+  \end{itemize}
+  \vfill \null
+
+\columnbreak
+
+  \null \vfill
+  \begin{itemize}
+    \item Joyce Levine
+    \item Kelly McConville
+    \item Nate Wells
+    \item Workshop Staff
+  \end{itemize}
+  \vfill \null
+\end{multicols}
+
+## That's all!
+
+```{r, fig.align='center', out.height = "200px"}
+knitr::include_graphics("images/xkcd2.png")
+```
+
+
